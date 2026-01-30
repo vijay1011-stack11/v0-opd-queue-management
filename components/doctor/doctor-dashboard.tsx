@@ -34,7 +34,9 @@ export function DoctorDashboard() {
   const [updatingPatient, setUpdatingPatient] = useState<string | null>(null)
 
   useEffect(() => {
+    console.log("[v0] Doctor dashboard: Setting up real-time subscription")
     const unsubscribe = subscribeToPatients((updatedPatients) => {
+      console.log("[v0] Doctor dashboard received update:", updatedPatients.length, "patients")
       // Sort: Emergency first, then by queue number
       const sorted = [...updatedPatients].sort((a, b) => {
         // Emergency patients first
@@ -51,11 +53,13 @@ export function DoctorDashboard() {
   }, [])
 
   const handleStatusChange = async (patientId: string, newStatus: PatientStatus) => {
+    console.log("[v0] Doctor updating patient status:", patientId, "to:", newStatus)
     setUpdatingPatient(patientId)
     try {
       await updatePatientStatus(patientId, newStatus)
+      console.log("[v0] Patient status updated successfully in Firebase")
     } catch (error) {
-      console.error("Failed to update status:", error)
+      console.error("[v0] Failed to update status:", error)
     } finally {
       setUpdatingPatient(null)
     }
