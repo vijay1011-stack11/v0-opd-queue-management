@@ -9,11 +9,11 @@ export type UserRole = "admin" | "doctor" | null
 const CREDENTIALS = {
   admin: {
     userId: "admin",
-    password: "admin@123",
+    password: "admin123",
   },
   doctor: {
     userId: "doctor",
-    password: "doctor@123",
+    password: "doctor123",
   },
 }
 
